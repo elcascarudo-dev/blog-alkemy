@@ -30,14 +30,39 @@ const Post = require( '../model/post.model' );
 const create = async ( req, res = response ) => {
   
   const body = req.body;
-  logger.debug( `Entrada resivida: ${ body }` );
+  const img  = req.body.img;
+
+  logger.debug( `Entrada resivida: `, body );
+
+  // Formatos validos de imagenes
+  const valitFormat = [ '.png', '.jpg', '.jpeg', '.gif' ];
+
+  // Valido si llego una imagen
+  if( img ){
+
+    let valido = false;
+    
+    // Valido si la imagen que se ingreso tiene formato valido
+    for (const tipo of valitFormat ) {
+      if( img.includes( tipo ) ) valido = true;
+    }
+
+    // Si no es valido se lo informo al usuario
+    if ( !valido ) {
+      logger.debug( `Formato de imagen invalido`, body );
+      return res.status( 400 ).json({
+        ok: false,
+        msg: `Los formatos permitidos son ${ valitFormat.join( ', ' ) }`
+      });
+    }
+  }
 
   try {
-
+    // Creo el post
     const postDB = await Post.create(  body  );
-
-  
     logger.debug( `Se guardo la entrada`, body );
+
+    // Lo devuelvo al usuario
     res.json({
       ok: true,
       post: postDB
@@ -64,7 +89,7 @@ const create = async ( req, res = response ) => {
 const read = async ( req, res = response ) => {
 
   try {
-    
+    // Muestro todos los post que hay en 
     const posts = await Post.findAll();
 
     res.json({
