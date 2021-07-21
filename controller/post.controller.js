@@ -90,7 +90,7 @@ const read = async ( req, res = response ) => {
 
   try {
     // Muestro todos los post que hay en 
-    const posts = await Post.findAll();
+    const posts = await Post.findAll( { attributes: ["id", "title", "img"] } );
 
     res.json({
       ok: true,
