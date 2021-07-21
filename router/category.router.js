@@ -3,13 +3,20 @@
  * Importación de paquetes
  * 
  */
- const { Router } = require( 'express' );
- 
- /*****************************************************************************
-  * 
-  * Controladores
-  * 
-  */
+const { Router } = require( 'express' );
+
+/*****************************************************************************
+ * 
+ * Middlewares
+ * 
+ */
+const { validarJWT } = require( '../middleware/validar-jwt.middleware' );
+
+/*****************************************************************************
+ * 
+ * Controladores
+ * 
+ */
 const { 
         create,
         read,
@@ -26,11 +33,11 @@ const router = Router();
  * /api/category
  */
 
-router.post( '/',       create );
 router.get( '/',        read );
 router.get( '/:id',     readId );
-router.delete( '/:id',  eliminar );
-router.patch( '/:id',   update );
+router.post( '/',       validarJWT, create );
+router.delete( '/:id',  validarJWT, eliminar );
+router.patch( '/:id',   validarJWT, update );
 
 
 /*****************************************************************************
