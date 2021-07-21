@@ -162,6 +162,9 @@ const update = async ( req, res = response ) => {
   const body = req.body;
   const img  = req.body.img;
 
+  // Formatos validos de imagenes
+  const valitFormat = [ '.png', '.jpg', '.jpeg', '.gif' ];
+  
   // Valido si llego una imagen
   if( img ){
 
