@@ -1,0 +1,31 @@
+{
+  "name": "back-challenge2",
+  "version": "1.0.0",
+  "description": "Deberás desarrollar una API para un blog, utilizando Node y Express. Los datos deberán ser persistidos en una base de datos MySQL, utilizando Sequelize. Esta API deberá devolver datos en formato JSON.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon index.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "sequelize",
+    "mysql",
+    "alkemy"
+  ],
+  "author": "Juan Pablo Pérez Lantes - elcascarudo.dev@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "log4js": "^6.3.0",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.6.5",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
