@@ -34,8 +34,8 @@ const router = Router();
  */
 
 router.get( '/',        read );
+router.get( '/:id',     readId );
 router.post( '/',       validarJWT, create );
-router.get( '/:id',     validarJWT, readId );
 router.delete( '/:id',  validarJWT, eliminar );
 router.patch( '/:id',   validarJWT, update );
 
