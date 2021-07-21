@@ -160,6 +160,27 @@ const update = async ( req, res = response ) => {
  
   const id = req.params.id;
   const body = req.body;
+  const img  = req.body.img;
+
+  // Valido si llego una imagen
+  if( img ){
+
+    let valido = false;
+    
+    // Valido si la imagen que se ingreso tiene formato valido
+    for (const tipo of valitFormat ) {
+      if( img.includes( tipo ) ) valido = true;
+    }
+
+    // Si no es valido se lo informo al usuario
+    if ( !valido ) {
+      logger.debug( `Formato de imagen invalido`, body );
+      return res.status( 400 ).json({
+        ok: false,
+        msg: `Los formatos permitidos son ${ valitFormat.join( ', ' ) }`
+      });
+    }
+  }
 
   try {
     
