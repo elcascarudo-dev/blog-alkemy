@@ -34,6 +34,22 @@ const create = async ( req, res = response ) => {
 
   try {
     
+    // Busco si la categoria existe para que no salga el catch y de error
+    const exist = await Category.findAll( {
+      where: {
+        category
+      }
+    });
+
+
+    if ( exist.length !== 0 ) {
+      return res.status( 400 ).json({
+        ok: false,
+        msg: `La categoria ${ category } ya existe`
+      });
+    }
+
+
     const categoryDB = await Category.create( { category } );
 
     logger.debug( `Se guardo la categoria ${ categoryDB.category  }` );
