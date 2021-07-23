@@ -11,8 +11,8 @@
  * Modelos
  * 
  */
-const Post = require( '../model/post.model' ); 
-
+const Post     = require( '../model/post.model' ); 
+const Category = require( '../model/category.model' );
  
 /*****************************************************************************
  * 
@@ -90,7 +90,15 @@ const read = async ( req, res = response ) => {
 
   try {
     // Muestro todos los post que hay en 
-    const posts = await Post.findAll( { attributes: ["id", "title", "img"] } );
+    const posts = await Post.findAll( 
+      { include: {
+                    model: Category,
+                    as: "cat",
+                    attributes: [ 'category' ]
+                  }, 
+        attributes: ["id", "title", "img"]
+      }
+    );
 
     res.json({
       ok: true,
@@ -121,7 +129,13 @@ const readId = async ( req, res = response ) => {
 
   try {
     
-    const postDB = await Post.findByPk( id );
+    const postDB = await Post.findByPk( id, 
+                                        { includes: {
+                                                      association: "category",
+                                                      attributes: [ 'category' ]
+                                                    } 
+                                        }
+                                      );
     
     
     if ( !postDB ) {

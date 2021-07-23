@@ -6,6 +6,8 @@ const logger = require('log4js').getLogger();
 const express = require( 'express' );
 const cors = require('cors');
 
+require( './model/association' );
+
 // Nivel de Debug
 logger.level = process.env.DEBUG_LEVEL;
 
@@ -19,14 +21,6 @@ app.use( cors() );
 // Lectura y parseo del Body
 app.use( express.json() );
 
-// Nos conectamos a la BBDD
-sequelize.sync( { force: false } )
-         .then( () => {
-           logger.info( 'Conectados a la BBDD' );
-         })
-         .catch( err => {
-           logger.error( `Error al conectarce a la BBDD ${ err }` );
-         });
 
 //rutas
 app.use( '/', require( './router/index.router' ) );
@@ -34,4 +28,13 @@ app.use( '/', require( './router/index.router' ) );
 // Expongo el api-rest
 app.listen( process.env.PORT, () => {
   logger.debug( `Corriendo en el puerto ${ process.env.PORT }` );
+  
+  // Nos conectamos a la BBDD
+  sequelize.sync( { force: false } )
+           .then( () => {
+             logger.info( 'Conectados a la BBDD' );
+           })
+           .catch( err => {
+             logger.error( `Error al conectarce a la BBDD ${ err }` );
+           });
 });

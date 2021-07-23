@@ -1,8 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const { sequelize } = require( '../config/dbConection.conf' );
 
-
-
 class Post extends Model {}
 
 Post.init({
@@ -14,10 +12,7 @@ Post.init({
     },
     img: {
       type: DataTypes.STRING
-    },
-    category: {
-      type: DataTypes.STRING
-    }    
+    }
   }, 
   { 
     sequelize, 
