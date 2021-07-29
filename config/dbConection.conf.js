@@ -1,4 +1,4 @@
-const logger = require('log4js').getLogger('dbConection');
+
 const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize( 
